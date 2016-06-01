@@ -1,5 +1,6 @@
 require 'centroid'
 require 'cluster'
+require 'means_sort'
 
 class Kmeans
 	attr_reader :data,:k
@@ -11,8 +12,15 @@ class Kmeans
 		result = Hash.new
 		result["dataset"] = @data
 		result["answers"] = []
+
 		init_means = Centroid.new(@data, @k).init_means
 		init_clusters = Cluster.new(@data, init_means).collect
+
+		r = Hash.new
+		r["means"]    = MeansSort.new(init_means).order
+		r["clusters"] = init_clusters
+		result["answers"] << r
+
 		new_clusters = []
 		new_means = []
 		means_collection = []
@@ -28,10 +36,12 @@ class Kmeans
 			new_clusters = cluster.collect
 			means_collection << new_means			
 			clusters_collection << new_clusters
-		end		
 
-		result["means"]	= means_collection
-		result["clusters"]	= clusters_collection
+			r = Hash.new
+			r["means"]    = MeansSort.new(new_means).order
+			r["clusters"] = new_clusters		
+			result["answers"] << r
+		end		
 		return result
 	end
 end

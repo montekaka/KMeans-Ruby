@@ -12,14 +12,18 @@ class MeansSort
 		return result
 	end
 	def order
-		result = []
+		answer = []
 		@array.each do |a|
 			r = Hash.new
 			r["mean"]  = a
 			r["value"] = convert_to_value(a)
-			result << r			 
+			answer << r			 
 		end
-		result = result.sort_by { |hsh| hsh["value"] }
+		answer = answer.sort_by { |hsh| hsh["value"] }
+		result = []
+		answer.each do |a|
+			result << a["mean"]
+		end
 		return result
 	end
 end

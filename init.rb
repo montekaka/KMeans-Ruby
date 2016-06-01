@@ -27,7 +27,8 @@ data = [
 
 k_means_clusters = Kmeans.new(data, k=3)
 
-means = k_means_clusters.group_clusters["means"]
+means = k_means_clusters.group_clusters["answers"][0]
+
 means.each do |mean|
     p mean
 end

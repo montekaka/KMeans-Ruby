@@ -14,7 +14,7 @@ class Cluster
 		@data.each do |p|
 			p_vs_c = []
 			@init_centroids.each do |c|
-				d = Distance.new(p,c["mean"]).euclidean
+				d = Distance.new(p,c).euclidean
 				p_vs_c << d
 			end
 			cluster << p_vs_c.index(p_vs_c.min)

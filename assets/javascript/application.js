@@ -22,7 +22,8 @@ var margin = {top: 20, right: 15, bottom: 60, left: 60}
 
 d3.json("http://localhost:4567/readings", function(error, data){
 	dataset = data['dataset'];	 
-	data_means = data['means'];
+	answers = data['answers'];
+	console.log(answers[0]['means']);
 	// setup scales
 	xScale.domain([d3.min(dataset, xValue)-1, d3.max(dataset, xValue)+1]);
 	yScale.domain([d3.min(dataset, yValue)-1, d3.max(dataset, yValue)+1]);
@@ -63,9 +64,11 @@ d3.json("http://localhost:4567/readings", function(error, data){
  	   .attr("cx", xMap)
      .attr("cy", yMap);
 	
+  
 
+     
 	svg.selectAll(".means")
-	   .data(data_means.pop())
+	   .data(answers.pop()['means'])
 	   .enter().append("circle")
 	   .attr("class", "means")
 	   .attr("r",0)
@@ -75,5 +78,6 @@ d3.json("http://localhost:4567/readings", function(error, data){
   	 .delay(1500)	   
 	   .attr('cx', xMap)
 	   .attr('cy', yMap);
+	   
 
 });
